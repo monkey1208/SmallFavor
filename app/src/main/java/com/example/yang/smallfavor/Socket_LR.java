@@ -31,8 +31,9 @@ public class Socket_LR {
     private login_information.register register_package;
     int flag = -1;
     String returnCode = "ncode";
-    //public final String IP = "140.112.30.33";
-    public final String IP = "10.5.5.29";
+    public final String IP = "140.112.30.36";
+    //public final String IP = "10.5.5.29";
+    //public final String IP = "10.5.5.36";
     public final int PORT = 5120;
     public Socket_LR(login_information.login login_package, login_information.register register_package){
         if(login_package != null){
@@ -93,7 +94,9 @@ public class Socket_LR {
                     e.printStackTrace();
                 }finally {
                     try {
-                        socket.close();
+                        if(socket!=null) {
+                            socket.close();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

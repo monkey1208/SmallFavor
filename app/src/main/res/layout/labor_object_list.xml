@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:background="@color/bisque"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="TITLE"
+        android:id="@+id/labor_textView_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="PRICE"
+        android:id="@+id/labor_textView_price"
+        android:layout_alignTop="@+id/labor_textView_ID"
+        android:layout_centerHorizontal="true"
+        android:gravity="right"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ID"
+        android:layout_gravity="right"
+        android:id="@+id/labor_textView_ID"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        android:layout_alignBottom="@+id/labor_textView_title"
+        android:layout_toEndOf="@+id/labor_textView_price" />
+</RelativeLayout>
