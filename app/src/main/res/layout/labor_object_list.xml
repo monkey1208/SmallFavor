@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="TITLE"
+        android:textSize="34sp"
         android:id="@+id/labor_textView_title" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:text="PRICE"
         android:id="@+id/labor_textView_price"
         android:layout_alignTop="@+id/labor_textView_ID"
+        android:textSize="32sp"
         android:layout_centerHorizontal="true"
         android:gravity="right"/>
 
@@ -31,6 +33,7 @@
         android:id="@+id/labor_textView_ID"
         android:layout_alignParentEnd="true"
         android:gravity="right"
+        android:textSize="32sp"
         android:layout_alignBottom="@+id/labor_textView_title"
         android:layout_toEndOf="@+id/labor_textView_price" />
 </RelativeLayout>

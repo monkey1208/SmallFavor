@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +18,20 @@ import java.util.zip.Inflater;
 public class LaborAdapter extends BaseAdapter {
     private LayoutInflater myInflater;
     private List<Labor_information> labor_list = new ArrayList<Labor_information>();
-    public LaborAdapter(Context c, List<Labor_information> labor_list){
+
+    public LaborAdapter(Context c, List<Labor_information> labor_list) {
         myInflater = LayoutInflater.from(c);
         this.labor_list = labor_list;
     }
+
     @Override
     public int getCount() {
-        return 0;
+        return labor_list.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Object getItem(int position) {
+        return position;
     }
 
     @Override
@@ -37,14 +40,21 @@ public class LaborAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertview, ViewGroup viewGroup) {
+    public View getView(final int position, View convertview, ViewGroup viewGroup) {
         convertview = myInflater.inflate(R.layout.labor_object_list, viewGroup, false);
-        TextView title = (TextView)convertview.findViewById(R.id.labor_textView_title);
-        TextView price = (TextView)convertview.findViewById(R.id.labor_textView_price);
-        TextView ID = (TextView)convertview.findViewById(R.id.labor_textView_ID);
+        TextView title = (TextView) convertview.findViewById(R.id.labor_textView_title);
+        TextView price = (TextView) convertview.findViewById(R.id.labor_textView_price);
+        TextView ID = (TextView) convertview.findViewById(R.id.labor_textView_ID);
         title.setText(labor_list.get(position).title);
-        price.setText(labor_list.get(position).price);
+        price.setText(Integer.toString(labor_list.get(position).price));
         ID.setText(labor_list.get(position).ID);
+        convertview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+            }
+        });
         return convertview;
     }
 }
+

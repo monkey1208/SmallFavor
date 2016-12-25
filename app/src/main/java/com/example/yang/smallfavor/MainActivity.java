@@ -182,8 +182,13 @@ public class MainActivity extends AppCompatActivity
         ListView list = (ListView)findViewById(R.id.labor_listView);
 
         List<Labor_information> labor_list = new ArrayList<Labor_information>();
-        labor_list.add(new Labor_information("fuck", 666, "ylc"));
+        for(int i = 0; i <21;i++) {
+            labor_list.add(new Labor_information("fuck", 666, "ylc"));
+        }
+        //labor_list.add(new Labor_information("2", 222, "st"));
         adapter = new LaborAdapter(this, labor_list);
         list.setAdapter(adapter);
     }
+
+
 }
