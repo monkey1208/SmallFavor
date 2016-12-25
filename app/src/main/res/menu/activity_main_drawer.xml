@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_menu"
+            android:title="主畫面" />
+        <item
+            android:id="@+id/drawer_intelligence"
+            android:title="智力賺錢區" />
+        <item
+            android:id="@+id/drawer_labor"
+            android:title="勞力賺錢區" />
+        <item
+            android:id="@+id/four"
+            android:title="Four" />
+    </group>
+
+    <item android:title="帳號">
+        <menu>
+            <item
+                android:id="@+id/drawer_account"
+                android:title="  我的帳號" />
+            <item
+                android:id="@+id/drawer_logout"
+                android:title="  登出" />
+        </menu>
+    </item>
+
+</menu>
