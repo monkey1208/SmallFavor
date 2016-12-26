@@ -25,10 +25,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private int flag = 0;//0:main 1:intelligence 2:labor
+    private String myaccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle bundle = this.getIntent().getExtras();
+        myaccount = bundle.getString("account");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         TextView name = (TextView)findViewById(R.id.main_textView_ID);
         TextView intelligence_count = (TextView)findViewById(R.id.intelligence_count);
         TextView labor_count = (TextView)findViewById(R.id.labor_count);
-        Socket_Req socket_req = new Socket_Req("main");
+        Socket_Req socket_req = new Socket_Req("main", myaccount);
         int returnCode = socket_req.runSocket();
         if(returnCode==1){
             login_information.account account = null;

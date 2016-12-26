@@ -56,6 +56,9 @@ public class Login_Activity extends AppCompatActivity {
                     Toast.makeText(view.getContext(), "Wrong Password", Toast.LENGTH_LONG).show();
                 }else if(returnCode == 1) {
                     Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("account", l_info.account);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
                 }else{

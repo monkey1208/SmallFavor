@@ -30,9 +30,11 @@ public class Socket_Req {
     public int returnCode = 0;
     private int commandcode = 0;
     public Myobjects objects;
-    public Socket_Req(String command){
+    public String myaccount;
+    public Socket_Req(String command, String myaccount){
         this.commandcode = command2code(command);
         objects = new Myobjects();
+        this.myaccount = myaccount;
     }
     public int runSocket(){
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -59,12 +61,16 @@ public class Socket_Req {
                 String response;
                 dos.writeUTF(requestCode);
                 response = dis.readUTF();
-                if (response.equals("OK"))
-                    dos.writeUTF(code2command(commandcode));
+                //if (response.equals("OK"))
+                dos.writeUTF(myaccount);
+                response = dis.readUTF();
+                //if(response.equals("OK"))
+                dos.writeUTF(code2command(commandcode));
                 gson_string = dis.readUTF();
                 gson2object(gson_string);
                 System.out.println(gson_string);
                 returnCode = 1;
+                dos.writeUTF("END");
             } catch (UnknownHostException e) {
                 returnCode = -1;
                 System.out.println("unknown host");
