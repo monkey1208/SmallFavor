@@ -7,9 +7,11 @@ public class Labor_information {
     public String title;
     public int price;
     public String ID;
-    public Labor_information(String title, int price, String ID){
+    public int post_ID;
+    public Labor_information(String title, int price, String ID, int post_ID){
         this.title = title;
         this.price = price;
         this.ID = ID;
+        this.post_ID = post_ID;
     }
 }

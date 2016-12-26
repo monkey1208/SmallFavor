@@ -47,10 +47,20 @@ public class Login_Activity extends AppCompatActivity {
                 Socket_LR socket = new Socket_LR(l_info, null);
                 ProgressBar spinner = (ProgressBar) findViewById(R.id.login_progressBar);
                 spinner.setVisibility(View.VISIBLE);
-                socket.runSocket();
-                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                int returnCode = socket.runSocket();
+                if(returnCode == -1){
+                    Toast.makeText(view.getContext(), "Can't Connect to Server", Toast.LENGTH_LONG).show();
+                }else if(returnCode == 0) {
+                    Toast.makeText(view.getContext(), "No Account", Toast.LENGTH_LONG).show();
+                }else if(returnCode == 2){
+                    Toast.makeText(view.getContext(), "Wrong Password", Toast.LENGTH_LONG).show();
+                }else if(returnCode == 1) {
+                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(view.getContext(), "ERROR", Toast.LENGTH_LONG).show();
+                }
             }
         }
     };
@@ -92,12 +102,20 @@ public class Login_Activity extends AppCompatActivity {
             }else{
                 r_info.sex = -1;
             }
-            if(!r_info.isfull()){
+            if(!r_info.isfull() || !r_info.isValid()){
                 Toast.makeText(view.getContext(), "請全部填寫", Toast.LENGTH_LONG).show();
             }else{
                 Socket_LR socket = new Socket_LR(null, r_info);
-                socket.runSocket();
-                Toast.makeText(view.getContext(), "SUBMIT", Toast.LENGTH_LONG).show();
+                int returnCode = socket.runSocket();
+                if(returnCode==-1){
+                    Toast.makeText(view.getContext(), "Can't Connect to Server", Toast.LENGTH_LONG).show();
+                }else if(returnCode==1) {
+                    Toast.makeText(view.getContext(), "SUBMITTED", Toast.LENGTH_LONG).show();
+                    flag = 0;
+                    login_page();
+                }else if(returnCode == 0){
+                    Toast.makeText(view.getContext(), "Account Used. Please try another account.", Toast.LENGTH_LONG).show();
+                }
             }
         }
     };

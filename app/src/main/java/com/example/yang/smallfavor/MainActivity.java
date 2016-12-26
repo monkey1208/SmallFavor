@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +159,23 @@ public class MainActivity extends AppCompatActivity
         TextView name = (TextView)findViewById(R.id.main_textView_ID);
         TextView intelligence_count = (TextView)findViewById(R.id.intelligence_count);
         TextView labor_count = (TextView)findViewById(R.id.labor_count);
+        Socket_Req socket_req = new Socket_Req("main");
+        int returnCode = socket_req.runSocket();
+        if(returnCode==1){
+            login_information.account account = null;
+            account = (login_information.account)socket_req.getobject();
+            //account = socket_req.objects.account_info;
+            if(account != null) {
+                textView_money.setText("$"+Integer.toString(account.money));
+                name.setText("你好, " + account.nickname);
+                intelligence_count.setText(Integer.toString(account.intelligence_task)+"項");
+                labor_count.setText(Integer.toString(account.labor_task)+"項");
+            }
+        }else if(returnCode==-1){
+            Toast.makeText(this, "Can't connect to Server", Toast.LENGTH_LONG);
+        }else if(returnCode == 0){
+            Toast.makeText(this, "other error",Toast.LENGTH_LONG);
+        }
         button_i.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,9 +201,8 @@ public class MainActivity extends AppCompatActivity
 
         List<Labor_information> labor_list = new ArrayList<Labor_information>();
         for(int i = 0; i <21;i++) {
-            labor_list.add(new Labor_information("fuck", 666, "ylc"));
+            labor_list.add(new Labor_information("fuck", 666, "ylc", 123));
         }
-        //labor_list.add(new Labor_information("2", 222, "st"));
         adapter = new LaborAdapter(this, labor_list);
         list.setAdapter(adapter);
     }

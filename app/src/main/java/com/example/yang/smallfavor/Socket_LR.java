@@ -2,17 +2,12 @@ package com.example.yang.smallfavor;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.sql.Time;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -21,19 +16,16 @@ import java.util.concurrent.TimeUnit;
  * Created by Yang on 2016/12/22.
  */
 public class Socket_LR {
-    private Thread thread;
     private Socket socket;
-    private BufferedWriter bw;
-    private BufferedReader br;
     private DataInputStream dis;
     private DataOutputStream dos;
     private login_information.login login_package;
     private login_information.register register_package;
     int flag = -1;
-    String returnCode = "ncode";
-    public final String IP = "140.112.30.36";
+    public int returnCode = -2;
+    //public final String IP = "140.112.30.36";
     //public final String IP = "10.5.5.29";
-    //public final String IP = "10.5.5.36";
+    public final String IP = "10.5.5.36";
     public final int PORT = 5120;
     public Socket_LR(login_information.login login_package, login_information.register register_package){
         if(login_package != null){
@@ -46,19 +38,17 @@ public class Socket_LR {
 
         }
     }
-    public void runSocket(){
+    public int runSocket(){
         ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
-        //thread = new Thread(Connection);
         threadExecutor.execute(new Connection());
         System.out.println("runsocket");
-        //thread.start();
         threadExecutor.shutdown();
         try {
             threadExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        return returnCode;
 
     }
     class Connection implements Runnable{
@@ -69,7 +59,8 @@ public class Socket_LR {
                     InetAddress serverIp = InetAddress.getByName(IP);
                     int serverPort = PORT;
                     System.out.println("before socket");
-                    socket = new Socket(serverIp, serverPort);
+                    socket = new Socket();
+                    socket.connect(new InetSocketAddress(serverIp,serverPort), 5500);
                     dos = new DataOutputStream(socket.getOutputStream());
                     dis = new DataInputStream(socket.getInputStream());
                     Gson gson = new Gson();
@@ -87,12 +78,24 @@ public class Socket_LR {
                     dos.writeUTF(info);
                     dos.flush();
                     res_msg = dis.readUTF();
+                    if(res_msg.equals("REG_FAIL")){
+                        returnCode = 0;
+                    }else if(res_msg.equals("REG_SUCCESS")||res_msg.equals("LOGIN_SUCCESS")) {
+                        returnCode = 1;
+                    }else if(res_msg.equals("LOGIN_NO_ACCOUNT")){
+                        returnCode = 0;
+                    }else if(res_msg.equals("LOGIN_WRONG_PWD")){
+                        returnCode = 2;
+                    }
                     dos.writeUTF("END");
                     dos.flush();
-
-                } catch (Exception e) {
+                } catch (IOException e) {
+                    returnCode = -1;
                     e.printStackTrace();
-                }finally {
+                } catch (Exception e) {
+                    returnCode = -1;
+                    e.printStackTrace();
+                } finally {
                     try {
                         if(socket!=null) {
                             socket.close();

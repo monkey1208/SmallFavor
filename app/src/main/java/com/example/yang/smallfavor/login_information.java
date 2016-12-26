@@ -26,7 +26,22 @@ public class login_information {
                 return false;
             return true;
         }
+        public boolean isValid(){
+            if(account.length()<5 || password.length()<5){
+                return false;
+            }
+            return true;
+        }
     }
-
+    public static class account{
+        String account = "";
+        String phone = "";
+        String email = "";
+        String nickname = "";
+        int sex = -1;
+        int money = 0;
+        int intelligence_task = 0;
+        int labor_task = 0;
+    }
 
 }
