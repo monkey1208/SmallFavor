@@ -26,15 +26,18 @@ public class Socket_Req {
     //public final String IP = "10.5.5.29";
     public final String IP = "10.5.5.36";
     public final int PORT = 5120;
-    private final String requestCode = "REQ";
+    private String requestCode = "REQ"; //REQ or ADD
     public int returnCode = 0;
     private int commandcode = 0;
     public Myobjects objects;
     public String myaccount;
-    public Socket_Req(String command, String myaccount){
+    public Labor_information labor_information = null;
+    public Socket_Req(String requestCode,String command, String myaccount, Labor_information labor_information){
         this.commandcode = command2code(command);
         objects = new Myobjects();
         this.myaccount = myaccount;
+        this.requestCode = requestCode;
+        this.labor_information = labor_information;
     }
     public int runSocket(){
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -54,7 +57,7 @@ public class Socket_Req {
             try {
                 InetAddress inetAddress = InetAddress.getByName(IP);
                 socket = new Socket();
-                socket.connect(new InetSocketAddress(inetAddress, PORT), 5500);
+                socket.connect(new InetSocketAddress(inetAddress, PORT), 2000);
                 dos = new DataOutputStream(socket.getOutputStream());
                 dis = new DataInputStream(socket.getInputStream());
                 String gson_string;
@@ -62,14 +65,37 @@ public class Socket_Req {
                 dos.writeUTF(requestCode);
                 response = dis.readUTF();
                 //if (response.equals("OK"))
-                dos.writeUTF(myaccount);
-                response = dis.readUTF();
+                if(requestCode.equals("REQ")) {
+                    dos.writeUTF(myaccount);
+                    response = dis.readUTF();
+                }
                 //if(response.equals("OK"))
                 dos.writeUTF(code2command(commandcode));
-                if(commandcode == 0 || commandcode == 1 || commandcode == 2 ||commandcode == 5){
-                    main_and_list(dis, dos);
+                boolean flag = true;
+                if(commandcode == 0 ||commandcode == 5){
+                    if(requestCode.equals("REQ"))
+                        flag = request_main(dis, dos);
+                    else if(requestCode.equals("ADD")) {
+                        flag = send_content(dis, dos);
+                    }
+                }else if(commandcode == 1 || commandcode == 2){
+                    if(requestCode.equals("REQ"))
+                        flag = request_list(dis, dos);
+                    else if(requestCode.equals("ADD")) {
+                        flag = send_content(dis, dos);
+                    }
+                }else if(commandcode == 4){
+                    if(requestCode.equals("REQ"))
+                        flag = request_content(dis, dos);
+                    else if(requestCode.equals("ADD")) {
+                        flag = send_content(dis, dos);
+                    }
                 }
-                returnCode = 1;
+                if(flag) {
+                    returnCode = 1;
+                }else{
+                    returnCode = 0;
+                }
                 dos.writeUTF("END");
             } catch (UnknownHostException e) {
                 returnCode = -1;
@@ -82,11 +108,40 @@ public class Socket_Req {
             }
         }
     }
-    private void main_and_list(DataInputStream dis, DataOutputStream dos) throws IOException {
+    private boolean request_content(DataInputStream dis, DataOutputStream dos) throws IOException {
+        String res;
+        res = dis.readUTF();
+        dos.writeUTF(Integer.toString(labor_information.post_ID));
+        res = dis.readUTF();
+        gson2object(res);
+        return true;
+    }
+    private boolean send_content(DataInputStream dis, DataOutputStream dos) throws IOException {
+        String res;
+        res = dis.readUTF();
+        Gson gson = new Gson();
+        String gson_string = gson.toJson(labor_information);
+        dos.writeUTF(gson_string);
+        res = dis.readUTF();
+        if(res.equals("ADD_FAIL")){
+            return false;
+        }
+        gson = null;
+        return true;
+    }
+    private boolean request_main(DataInputStream dis, DataOutputStream dos) throws IOException {
         String gson_string;
         gson_string = dis.readUTF();
         gson2object(gson_string);
-        System.out.println(gson_string);
+        System.out.println("gson string = "+gson_string);
+        return true;
+    }
+    private boolean request_list(DataInputStream dis, DataOutputStream dos) throws IOException {
+        String gson_string;
+        gson_string = dis.readUTF();
+        gson2object(gson_string);
+        System.out.println("gson string = "+gson_string);
+        return true;
     }
     public String code2command(int code){
         switch(code){
@@ -127,6 +182,7 @@ public class Socket_Req {
     public class Myobjects{
         login_information.account account_info = null;
         List<Labor_information> labor_information_list = null;
+        Labor_information labor_information = null;
     }
     private void gson2object(String gson_string){
         Gson gson = new Gson();
@@ -143,6 +199,7 @@ public class Socket_Req {
             case 3:
                 break;
             case 4:
+                objects.labor_information = gson.fromJson(gson_string, Labor_information.class);
                 break;
             case 5:
                 objects.account_info = gson.fromJson(gson_string, login_information.account.class);
@@ -162,7 +219,7 @@ public class Socket_Req {
             case 3:
                 return null;
             case 4:
-                return null;
+                return objects.labor_information;
             case 5:
                 return objects.account_info;
             default:

@@ -10,7 +10,7 @@
     tools:context="com.example.yang.smallfavor.MainActivity"
     tools:showIn="@layout/app_bar_main"
     android:background="@color/black">
-
+    <!-- -->
     <LinearLayout
         android:layout_marginTop="15dp"
         android:paddingLeft="15dp"
@@ -23,57 +23,51 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="標題:"
-            android:textSize="30sp"
+            android:text="TITLE"
+            android:textSize="35sp"
             android:textColor="@color/white"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:id="@+id/labor_content_title"/>
 
-        <EditText
-            android:layout_marginRight="15dp"
-            android:background="@color/gray"
-            android:textColor="@color/black"
-            android:hint="標題"
-            android:textSize="27sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/labor_add_editText_title" />
+
 
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="5dp"
-        android:paddingLeft="15dp"
+        android:paddingLeft="35dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.4"
         android:layout_gravity="center_horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="價格:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="ylc"
             android:textSize="30sp"
-            android:textColor="@color/white"
+            android:textColor="@color/darkseagreen"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:layout_marginRight="15dp"
-            android:background="@color/gray"
-            android:textColor="@color/black"
-            android:hint="支付價錢"
-            android:textSize="27sp"
-            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:id="@+id/labor_content_ID"/>
+        <TextView
+            android:paddingLeft="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/labor_add_editText_price" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="$$"
+            android:textSize="28sp"
+            android:textColor="@color/skyblue"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/labor_content_price"/>
+
+
 
     </LinearLayout>
 
     <LinearLayout
         android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-
         android:paddingRight="15dp"
         android:orientation="horizontal"
         android:layout_weight="10"
@@ -85,21 +79,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:textColor="@color/white"
-            android:text="內容:" />
+            android:text="內容"
+            android:id="@+id/labor_content_content" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:inputType="textMultiLine"
-            android:background="@color/gray"
-            android:textColor="@color/black"
-            android:textSize="27sp"
-            android:hint="內文"
-            android:ems="10"
-            android:id="@+id/labor_add_editText_content"
-            android:layout_weight="1" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -111,20 +96,20 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="放棄"
+            android:text="返回"
             android:textColor="@color/ivory"
             android:background="#00000000"
             android:textSize="25sp"
-            android:id="@+id/labor_add_button_giveup"/>
+            android:id="@+id/labor_content_button_back"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="35sp"
             android:background="#00000000"
-            android:textColor="@color/ivory"
-            android:text="發文"
+            android:textColor="@color/peru"
+            android:text="接受"
             android:paddingRight="15dp"
-            android:id="@+id/labor_add_button_submit"
+            android:id="@+id/labor_content_button_request"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>

@@ -9,11 +9,13 @@ public class Labor_information {
     public String ID;
     public int post_ID;
     public int state;
-    public Labor_information(String title, int price, String ID, int post_ID, int state){
+    public String content;
+    public Labor_information(String title, int price, String ID, int post_ID, int state, String content){
         this.title = title;
         this.price = price;
         this.ID = ID;
         this.post_ID = post_ID;
         this.state = state;
+        this.content = content;
     }
 }

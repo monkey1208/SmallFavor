@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity
                 logout();
             }else if(flag==1 || flag==2){
                 main_layout();
+            }else if(flag==21 || flag==22){
+                labor_layout();
             }
         }
         return true;
@@ -141,20 +144,40 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
                 break;
             case 1:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
                 break;
             case 2:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                break;
+            case 21:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                break;
+            case 22:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.VISIBLE);
                 break;
         }
     }
-    private void main_layout(){
+    public void main_layout(){
         SetLayout(0);
         flag = 0;
         Button button_i = (Button)findViewById(R.id.main_button_intelligence);
@@ -163,12 +186,11 @@ public class MainActivity extends AppCompatActivity
         TextView name = (TextView)findViewById(R.id.main_textView_ID);
         TextView intelligence_count = (TextView)findViewById(R.id.intelligence_count);
         TextView labor_count = (TextView)findViewById(R.id.labor_count);
-        Socket_Req socket_req = new Socket_Req("main", myaccount);
+        Socket_Req socket_req = new Socket_Req("REQ", "main", myaccount, null);
         int returnCode = socket_req.runSocket();
         if(returnCode==1){
             login_information.account account = null;
             account = (login_information.account)socket_req.getobject();
-            //account = socket_req.objects.account_info;
             if(account != null) {
                 textView_money.setText("$"+Integer.toString(account.money));
                 name.setText("你好, " + account.nickname);
@@ -180,6 +202,7 @@ public class MainActivity extends AppCompatActivity
         }else if(returnCode == 0){
             Toast.makeText(this, "other error",Toast.LENGTH_LONG);
         }
+        socket_req = null;
         button_i.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,25 +216,115 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    private void intelligence_layout(){
+    public void intelligence_layout(){
         SetLayout(1);
         flag = 1;
     }
-    private void labor_layout(){
+    public void labor_layout(){
         SetLayout(2);
         flag = 2;
         LaborAdapter adapter = null;
         ListView list = (ListView)findViewById(R.id.labor_listView);
-
-        List<Labor_information> labor_list = new ArrayList<Labor_information>();
-        for(int i = 0; i <21;i++) {
-            labor_list.add(new Labor_information("fuck", 666, "ylc", 123, 0));
-        }
-        adapter = new LaborAdapter(this, labor_list);
+        List<Labor_information> labor_list;// = new ArrayList<Labor_information>();
+        Socket_Req socket_req = new Socket_Req("REQ", "labor", myaccount, null);
+        socket_req.runSocket();
+        labor_list = (List<Labor_information>) socket_req.getobject();
+        adapter = new LaborAdapter(MainActivity.this, labor_list);
         list.setAdapter(adapter);
         ImageButton imageButton_add = (ImageButton)findViewById(R.id.labor_imageButton_add);
-        //imageButton_add.setOnClickListener();
+        imageButton_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                labor_add_layout();
+            }
+        });
     }
-
+    public void labor_add_layout(){
+        SetLayout(21);
+        flag = 21;
+        Button post = (Button)findViewById(R.id.labor_add_button_submit);
+        Button giveup = (Button)findViewById(R.id.labor_add_button_giveup);
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText title = (EditText)findViewById(R.id.labor_add_editText_title);
+                EditText price = (EditText)findViewById(R.id.labor_add_editText_price);
+                EditText content = (EditText)findViewById(R.id.labor_add_editText_content);
+                if(title.getText().toString().length() == 0 || price.getText().toString().length() == 0){
+                    Toast.makeText(MainActivity.this, "Must fill title and price", Toast.LENGTH_LONG);
+                }else {
+                    Labor_information labor_information = new Labor_information(title.getText().toString(), Integer.valueOf(price.getText().toString()), myaccount, -1, 0, content.getText().toString());
+                    Socket_Req socket_req = new Socket_Req("ADD", "labor_content", myaccount, labor_information);
+                    int returnCode = socket_req.runSocket();
+                    if (returnCode == 1) {
+                        title.setText("");
+                        labor_layout();
+                    } else if (returnCode == -1) {
+                        Toast.makeText(MainActivity.this, "Can't connect to Server", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "other error", Toast.LENGTH_LONG).show();
+                    }
+                    socket_req = null;
+                    labor_information = null;
+                }
+            }
+        });
+        giveup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                labor_layout();
+            }
+        });
+    }
+    public void labor_content_layout(Labor_information now_labor){
+        SetLayout(22);
+        flag = 22;
+        Socket_Req socket_req = new Socket_Req("REQ", "labor_content", myaccount, now_labor);
+        int returnCode = socket_req.runSocket();
+        if(returnCode == 1){
+            Button request = (Button)findViewById(R.id.labor_content_button_request);
+            TextView title = (TextView)findViewById(R.id.labor_content_title);
+            TextView ID = (TextView)findViewById(R.id.labor_content_ID);
+            TextView price = (TextView)findViewById(R.id.labor_content_price);
+            TextView content = (TextView)findViewById(R.id.labor_content_content);
+            Labor_information labor_information = (Labor_information) socket_req.getobject();
+            if(labor_information!=null){
+                title.setText(labor_information.title);
+                ID.setText(labor_information.ID);
+                price.setText(Integer.toString(labor_information.price));
+                content.setText(labor_information.content);
+            }
+            request.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("確定接受？");
+                    builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            labor_layout();
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                        }
+                    });
+                    builder.show();
+                }
+            });
+        }else if(returnCode == -1){
+            Toast.makeText(MainActivity.this, "Can't connect to Server", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(MainActivity.this, "request error", Toast.LENGTH_LONG).show();
+        }
+        Button back = (Button)findViewById(R.id.labor_content_button_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                labor_layout();
+            }
+        });
+    }
 
 }

@@ -18,8 +18,9 @@ import java.util.zip.Inflater;
 public class LaborAdapter extends BaseAdapter {
     private LayoutInflater myInflater;
     private List<Labor_information> labor_list = new ArrayList<Labor_information>();
-
+    private Context c;
     public LaborAdapter(Context c, List<Labor_information> labor_list) {
+        this.c = c;
         myInflater = LayoutInflater.from(c);
         this.labor_list = labor_list;
     }
@@ -31,7 +32,7 @@ public class LaborAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return labor_list.get(position);
     }
 
     @Override
@@ -52,6 +53,7 @@ public class LaborAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                ((MainActivity)c).labor_content_layout(labor_list.get(position));
             }
         });
         return convertview;
