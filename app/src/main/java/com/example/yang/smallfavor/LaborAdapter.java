@@ -1,6 +1,7 @@
 package com.example.yang.smallfavor;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,11 @@ public class LaborAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return labor_list.size();
+        if(labor_list!=null) {
+            return labor_list.size();
+        }else{
+            return 0;
+        }
     }
 
     @Override
@@ -47,8 +52,11 @@ public class LaborAdapter extends BaseAdapter {
         TextView price = (TextView) convertview.findViewById(R.id.labor_textView_price);
         TextView ID = (TextView) convertview.findViewById(R.id.labor_textView_ID);
         title.setText(labor_list.get(position).title);
-        price.setText(Integer.toString(labor_list.get(position).price));
+        price.setText("$"+Integer.toString(labor_list.get(position).price));
         ID.setText(labor_list.get(position).ID);
+        if(labor_list.get(position).state == 1){
+            convertview.setBackgroundColor(Color.GRAY);
+        }
         convertview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

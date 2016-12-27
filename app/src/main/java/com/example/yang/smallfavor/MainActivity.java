@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,6 +69,10 @@ public class MainActivity extends AppCompatActivity
                 main_layout();
             }else if(flag==21 || flag==22){
                 labor_layout();
+            }else if(flag==3){
+                main_layout();
+            }else if(flag==31){
+                task_layout();
             }
         }
         return true;
@@ -109,8 +114,8 @@ public class MainActivity extends AppCompatActivity
             labor_layout();
         } else if (id == R.id.four) {
 
-        } else if (id == R.id.drawer_account) {
-
+        } else if (id == R.id.drawer_task) {
+            task_layout();
         } else if (id == R.id.drawer_logout) {
             logout();
         }
@@ -146,6 +151,8 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 break;
             case 1:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -153,6 +160,8 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 break;
             case 2:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -160,6 +169,8 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.labor_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 break;
             case 21:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -167,6 +178,8 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 break;
             case 22:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -174,6 +187,26 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                break;
+            case 3:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                break;
+            case 31:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -276,7 +309,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    public void labor_content_layout(Labor_information now_labor){
+    public void labor_content_layout(final Labor_information now_labor){
         SetLayout(22);
         flag = 22;
         Socket_Req socket_req = new Socket_Req("REQ", "labor_content", myaccount, now_labor);
@@ -291,7 +324,7 @@ public class MainActivity extends AppCompatActivity
             if(labor_information!=null){
                 title.setText(labor_information.title);
                 ID.setText(labor_information.ID);
-                price.setText(Integer.toString(labor_information.price));
+                price.setText("$"+Integer.toString(labor_information.price));
                 content.setText(labor_information.content);
             }
             request.setOnClickListener(new View.OnClickListener() {
@@ -302,6 +335,8 @@ public class MainActivity extends AppCompatActivity
                     builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Socket_Req socket_req1 = new Socket_Req("AC", "", myaccount, now_labor);
+                            socket_req1.runSocket();
                             labor_layout();
                         }
                     });
@@ -323,6 +358,59 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 labor_layout();
+            }
+        });
+    }
+    public void task_layout(){
+        SetLayout(3);
+        flag = 3;
+        TaskAdapter adapter = null;
+        ListView list = (ListView)findViewById(R.id.task_listView);
+        List<Labor_information> task_list;
+        Socket_Req socket_req = new Socket_Req("REQ", "task", myaccount, null);
+        socket_req.runSocket();
+        task_list = (List<Labor_information>) socket_req.getobject();
+        adapter = new TaskAdapter(MainActivity.this, task_list);
+        list.setAdapter(adapter);
+    }
+    public void task_content_layout(final Labor_information task_information){
+        SetLayout(31);
+        flag = 31;
+        Button deal = (Button)findViewById(R.id.task_content_button_request);
+        Button giveup = (Button)findViewById(R.id.task_content_button_back);
+        TextView title = (TextView)findViewById(R.id.task_content_title);
+        TextView ID = (TextView)findViewById(R.id.task_content_ID);
+        TextView price = (TextView)findViewById(R.id.task_content_price);
+        TextView content = (TextView)findViewById(R.id.task_content_content);
+        title.setText(task_information.title);
+        ID.setText(task_information.ID);
+        price.setText("$"+Integer.toString(task_information.price));
+        content.setText(task_information.content);
+
+        deal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(task_information.state == 0){
+                    Toast.makeText(MainActivity.this, "Still waiting", Toast.LENGTH_LONG).show();
+                }else {
+                    Labor_information tmp = new Labor_information("", 0, "", task_information.post_ID, 1, "");
+                    Socket_Req socket_req = new Socket_Req("DEL", "", myaccount, tmp);
+                    socket_req.runSocket();
+                    task_layout();
+                }
+            }
+        });
+        giveup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(task_information.state == 1){
+                    Toast.makeText(MainActivity.this, "Pleas fucking wait for"+task_information.accepter, Toast.LENGTH_LONG).show();
+                }else {
+                    Labor_information tmp = new Labor_information("", 0, "", task_information.post_ID, -1, "");
+                    Socket_Req socket_req = new Socket_Req("DEL", "", myaccount, tmp);
+                    socket_req.runSocket();
+                    task_layout();
+                }
             }
         });
     }

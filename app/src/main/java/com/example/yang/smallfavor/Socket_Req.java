@@ -65,36 +65,43 @@ public class Socket_Req {
                 dos.writeUTF(requestCode);
                 response = dis.readUTF();
                 //if (response.equals("OK"))
-                if(requestCode.equals("REQ")) {
+                if(requestCode.equals("REQ") || requestCode.equals("AC")) {
                     dos.writeUTF(myaccount);
                     response = dis.readUTF();
                 }
                 //if(response.equals("OK"))
-                dos.writeUTF(code2command(commandcode));
-                boolean flag = true;
-                if(commandcode == 0 ||commandcode == 5){
-                    if(requestCode.equals("REQ"))
-                        flag = request_main(dis, dos);
-                    else if(requestCode.equals("ADD")) {
-                        flag = send_content(dis, dos);
-                    }
-                }else if(commandcode == 1 || commandcode == 2){
-                    if(requestCode.equals("REQ"))
-                        flag = request_list(dis, dos);
-                    else if(requestCode.equals("ADD")) {
-                        flag = send_content(dis, dos);
-                    }
-                }else if(commandcode == 4){
-                    if(requestCode.equals("REQ"))
-                        flag = request_content(dis, dos);
-                    else if(requestCode.equals("ADD")) {
-                        flag = send_content(dis, dos);
-                    }
+                if(requestCode.equals("AC")) {
+                    send_accept(dis, dos);
+                }else if(requestCode.equals("DEL")){
+                    send_deletion(dis, dos);
                 }
-                if(flag) {
-                    returnCode = 1;
-                }else{
-                    returnCode = 0;
+                else{
+                    dos.writeUTF(code2command(commandcode));
+                    boolean flag = true;
+                    if (commandcode == 0 || commandcode == 5) {
+                        if (requestCode.equals("REQ"))
+                            flag = request_main(dis, dos);
+                        else if (requestCode.equals("ADD")) {
+                            flag = send_content(dis, dos);
+                        }
+                    } else if (commandcode == 1 || commandcode == 2 || commandcode == 6) {
+                        if (requestCode.equals("REQ"))
+                            flag = request_list(dis, dos);
+                        else if (requestCode.equals("ADD")) {
+                            flag = send_content(dis, dos);
+                        }
+                    } else if (commandcode == 4) {
+                        if (requestCode.equals("REQ"))
+                            flag = request_content(dis, dos);
+                        else if (requestCode.equals("ADD")) {
+                            flag = send_content(dis, dos);
+                        }
+                    }
+                    if (flag) {
+                        returnCode = 1;
+                    } else {
+                        returnCode = 0;
+                    }
                 }
                 dos.writeUTF("END");
             } catch (UnknownHostException e) {
@@ -107,6 +114,22 @@ public class Socket_Req {
                 e.printStackTrace();
             }
         }
+    }
+    private boolean send_accept(DataInputStream dis, DataOutputStream dos) throws IOException {
+        dos.writeUTF(Integer.toString(labor_information.post_ID));
+        String res = dis.readUTF();
+        return true;
+    }
+    private boolean send_deletion(DataInputStream dis, DataOutputStream dos) throws IOException {
+        dos.writeUTF(Integer.toString(labor_information.post_ID));
+        dis.readUTF();
+        if(labor_information.state == -1){
+            dos.writeUTF("giveup");
+        }else{
+            dos.writeUTF("success");
+        }
+        dis.readUTF();
+        return true;
     }
     private boolean request_content(DataInputStream dis, DataOutputStream dos) throws IOException {
         String res;
@@ -157,6 +180,8 @@ public class Socket_Req {
                 return "labor_content";
             case 5:
                 return "account";
+            case 6:
+                return "task";
             default:
                 return "none";
         }
@@ -175,6 +200,8 @@ public class Socket_Req {
                 return 4;
             case "account":
                 return 5;
+            case "task":
+                return 6;
             default:
                 return -1;
         }
@@ -204,6 +231,9 @@ public class Socket_Req {
             case 5:
                 objects.account_info = gson.fromJson(gson_string, login_information.account.class);
                 break;
+            case 6:
+                objects.labor_information_list = gson.fromJson(gson_string, new TypeToken<List<Labor_information>>(){}.getType());
+                break;
             default:
                 break;
         }
@@ -222,6 +252,8 @@ public class Socket_Req {
                 return objects.labor_information;
             case 5:
                 return objects.account_info;
+            case 6:
+                return objects.labor_information_list;
             default:
                 return null;
         }

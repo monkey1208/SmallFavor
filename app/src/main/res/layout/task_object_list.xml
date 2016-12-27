@@ -6,34 +6,40 @@
 
 
     <TextView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="TITLE"
         android:textSize="34sp"
-        android:id="@+id/labor_textView_title" />
+        android:id="@+id/task_textView_title" />
 
     <TextView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="PRICE"
-        android:id="@+id/labor_textView_price"
-        android:textSize="30sp"
+        android:id="@+id/task_textView_price"
+        android:textSize="32sp"
         android:gravity="right"
-        android:layout_alignBottom="@+id/labor_textView_ID"
+        android:layout_alignBottom="@+id/task_textView_state"
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ID"
+        android:text="state"
         android:layout_gravity="right"
-        android:id="@+id/labor_textView_ID"
+        android:id="@+id/task_textView_state"
         android:layout_alignParentEnd="true"
         android:gravity="right"
         android:textSize="22sp"
-        android:layout_alignBottom="@+id/labor_textView_title"
-        android:layout_toEndOf="@+id/labor_textView_price" />
+        android:layout_alignBottom="@+id/task_textView_title"
+        android:layout_toEndOf="@+id/task_textView_price" />
 </RelativeLayout>

@@ -10,6 +10,7 @@ public class Labor_information {
     public int post_ID;
     public int state;
     public String content;
+    public String accepter;
     public Labor_information(String title, int price, String ID, int post_ID, int state, String content){
         this.title = title;
         this.price = price;
@@ -17,5 +18,6 @@ public class Labor_information {
         this.post_ID = post_ID;
         this.state = state;
         this.content = content;
+        this.accepter = "";
     }
 }
