@@ -1,5 +1,7 @@
 package com.example.yang.smallfavor;
 
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -128,7 +130,8 @@ public class Socket_Req {
         }else{
             dos.writeUTF("success");
         }
-        dis.readUTF();
+        String res = dis.readUTF();
+        System.out.println(res);
         return true;
     }
     private boolean request_content(DataInputStream dis, DataOutputStream dos) throws IOException {
