@@ -1,0 +1,21 @@
+Server need to do
+
+REG
+recv(“REG”) -> send(“OK”) -> recv(register_gson) -> (can register)?send(“REG_SUCCESS”):send(REG_FAIL)
+   						    
+LOG
+recv(“LOG”) -> send(“OK”) -> recv(login_gson) -> { case(can login):send(“LOGIN_SUCCESS”), case(no account):send(“LOGIN_NO_ACCOUNT”), case(wrong pwd):send(“LOGIN_WRONG_PWD”) }
+
+REQ
+	main
+	recv(“REQ”) -> send(“OK”) -> recv(account) -> send(“OK”) -> recv(“main”) -> send(account_gson)
+	intelligence
+	recv(“REQ”) -> send(“OK”) -> recv(account) -> send(“OK”) -> recv(“intelligence”) -> send(intelligence list)
+	labor
+	recv(“REQ”) -> send(“OK”) -> recv(account) -> send(“OK”) -> recv(“labor”) -> send(labor list)  //labor list
+	intelligence_content
+	recv(“REQ”) -> send(“OK”) -> recv(account) -> send(“OK”) -> recv(“intelligence_content) -> 
+	labor_content
+	recv(“REQ”) -> send(“OK”) -> recv(account) -> send(“OK”) -> recv(“labor_content”) -> recv(postID) -> send(post_content)
+	account
+	do the same as main

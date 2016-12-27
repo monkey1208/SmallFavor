@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -204,10 +205,12 @@ public class MainActivity extends AppCompatActivity
 
         List<Labor_information> labor_list = new ArrayList<Labor_information>();
         for(int i = 0; i <21;i++) {
-            labor_list.add(new Labor_information("fuck", 666, "ylc", 123));
+            labor_list.add(new Labor_information("fuck", 666, "ylc", 123, 0));
         }
         adapter = new LaborAdapter(this, labor_list);
         list.setAdapter(adapter);
+        ImageButton imageButton_add = (ImageButton)findViewById(R.id.labor_imageButton_add);
+        //imageButton_add.setOnClickListener();
     }
 
 

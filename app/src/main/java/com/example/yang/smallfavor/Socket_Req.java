@@ -66,9 +66,9 @@ public class Socket_Req {
                 response = dis.readUTF();
                 //if(response.equals("OK"))
                 dos.writeUTF(code2command(commandcode));
-                gson_string = dis.readUTF();
-                gson2object(gson_string);
-                System.out.println(gson_string);
+                if(commandcode == 0 || commandcode == 1 || commandcode == 2 ||commandcode == 5){
+                    main_and_list(dis, dos);
+                }
                 returnCode = 1;
                 dos.writeUTF("END");
             } catch (UnknownHostException e) {
@@ -81,6 +81,12 @@ public class Socket_Req {
                 e.printStackTrace();
             }
         }
+    }
+    private void main_and_list(DataInputStream dis, DataOutputStream dos) throws IOException {
+        String gson_string;
+        gson_string = dis.readUTF();
+        gson2object(gson_string);
+        System.out.println(gson_string);
     }
     public String code2command(int code){
         switch(code){
