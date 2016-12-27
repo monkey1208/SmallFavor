@@ -86,7 +86,7 @@ public class Socket_Req {
                         else if (requestCode.equals("ADD")) {
                             flag = send_content(dis, dos);
                         }
-                    } else if (commandcode == 1 || commandcode == 2 || commandcode == 6) {
+                    } else if (commandcode == 1 || commandcode == 2 || commandcode == 6 || commandcode == 7) {
                         if (requestCode.equals("REQ"))
                             flag = request_list(dis, dos);
                         else if (requestCode.equals("ADD")) {
@@ -127,8 +127,10 @@ public class Socket_Req {
         dis.readUTF();
         if(labor_information.state == -1){
             dos.writeUTF("giveup");
-        }else{
+        }else if(labor_information.state == 1){
             dos.writeUTF("success");
+        }else{
+            dos.writeUTF("regret");
         }
         String res = dis.readUTF();
         System.out.println(res);
@@ -185,6 +187,8 @@ public class Socket_Req {
                 return "account";
             case 6:
                 return "task";
+            case 7:
+                return "task2do";
             default:
                 return "none";
         }
@@ -205,6 +209,8 @@ public class Socket_Req {
                 return 5;
             case "task":
                 return 6;
+            case "task2do":
+                return 7;
             default:
                 return -1;
         }
@@ -237,6 +243,9 @@ public class Socket_Req {
             case 6:
                 objects.labor_information_list = gson.fromJson(gson_string, new TypeToken<List<Labor_information>>(){}.getType());
                 break;
+            case 7:
+                objects.labor_information_list = gson.fromJson(gson_string, new TypeToken<List<Labor_information>>(){}.getType());
+                break;
             default:
                 break;
         }
@@ -256,6 +265,8 @@ public class Socket_Req {
             case 5:
                 return objects.account_info;
             case 6:
+                return objects.labor_information_list;
+            case 7:
                 return objects.labor_information_list;
             default:
                 return null;

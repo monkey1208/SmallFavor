@@ -29,6 +29,8 @@
     <include android:id="@+id/labor_content_layout" android:visibility="gone" layout="@layout/labor_content"/>
     <include android:id="@+id/task_layout" android:visibility="gone" layout="@layout/task"/>
     <include android:id="@+id/task_content_layout" android:visibility="gone" layout="@layout/task_content"/>
+    <include android:id="@+id/task2do_layout" android:visibility="gone" layout="@layout/task2do"/>
+    <include android:id="@+id/tas2do_content_layout" android:visibility="gone" layout="@layout/task2do_content"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

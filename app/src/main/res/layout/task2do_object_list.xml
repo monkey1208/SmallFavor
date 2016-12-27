@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:background="@color/bisque"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="TITLE"
+        android:textSize="34sp"
+        android:id="@+id/task2do_textView_title" />
+
+    <TextView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="PRICE"
+        android:id="@+id/task2do_textView_price"
+        android:textSize="32sp"
+        android:gravity="right"
+        android:layout_alignBottom="@+id/task2do_textView_state"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="state"
+        android:layout_gravity="right"
+        android:id="@+id/task2do_textView_state"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        android:textSize="22sp"
+        android:layout_alignBottom="@+id/task2do_textView_title"
+        android:layout_toEndOf="@+id/task2do_textView_price" />
+</RelativeLayout>

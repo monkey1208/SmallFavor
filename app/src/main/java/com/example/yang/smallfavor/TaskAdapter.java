@@ -20,10 +20,12 @@ public class TaskAdapter extends BaseAdapter {
     private LayoutInflater myInflater;
     private List<Labor_information> task_list = new ArrayList<Labor_information>();
     private Context c;
-    public TaskAdapter(Context c, List<Labor_information> task_list) {
+    private int flag;
+    public TaskAdapter(Context c, List<Labor_information> task_list, int flag) {
         this.c = c;
         myInflater = LayoutInflater.from(c);
         this.task_list = task_list;
+        this.flag = flag;
     }
 
     @Override
@@ -46,15 +48,30 @@ public class TaskAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertview, ViewGroup viewGroup) {
-        convertview = myInflater.inflate(R.layout.task_object_list, viewGroup, false);
-        TextView title = (TextView) convertview.findViewById(R.id.task_textView_title);
-        TextView price = (TextView) convertview.findViewById(R.id.task_textView_price);
-        TextView state = (TextView) convertview.findViewById(R.id.task_textView_state);
+        TextView title;
+        TextView price;
+        TextView state;
+        if(flag == 0) {
+            convertview = myInflater.inflate(R.layout.task_object_list, viewGroup, false);
+            title = (TextView) convertview.findViewById(R.id.task_textView_title);
+            price = (TextView) convertview.findViewById(R.id.task_textView_price);
+            state = (TextView) convertview.findViewById(R.id.task_textView_state);
+        }else{
+            convertview = myInflater.inflate(R.layout.task2do_object_list, viewGroup, false);
+            title = (TextView) convertview.findViewById(R.id.task2do_textView_title);
+            price = (TextView) convertview.findViewById(R.id.task2do_textView_price);
+            state = (TextView) convertview.findViewById(R.id.task2do_textView_state);
+        }
         title.setText(task_list.get(position).title);
         price.setText("$"+Integer.toString(task_list.get(position).price));
         if(task_list.get(position).state == 1){
-            state.setText(task_list.get(position).accepter+" running");
+            if(flag==0) {
+                state.setText(task_list.get(position).accepter + " running");
+            }else{
+                state.setText("your duty");
+            }
             convertview.setBackgroundColor(Color.YELLOW);
+
         }else if(task_list.get(position).state == 0){
             state.setText("waiting");
         }else{
@@ -64,7 +81,11 @@ public class TaskAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
-                ((MainActivity)c).task_content_layout(task_list.get(position));
+                if(flag == 0) {
+                    ((MainActivity) c).task_content_layout(task_list.get(position));
+                }else{
+                    ((MainActivity) c).task2do_content_layout(task_list.get(position));
+                }
             }
         });
         return convertview;

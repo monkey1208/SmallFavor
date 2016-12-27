@@ -22,6 +22,9 @@
                 android:id="@+id/drawer_task"
                 android:title="  我的任務" />
             <item
+                android:id="@+id/drawer_task2do"
+                android:title="  需要完成的任務" />
+            <item
                 android:id="@+id/drawer_logout"
                 android:title="  登出" />
         </menu>
