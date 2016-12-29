@@ -416,6 +416,7 @@ public class MainActivity extends AppCompatActivity
         flag = 31;
         Button deal = (Button)findViewById(R.id.task_content_button_request);
         Button giveup = (Button)findViewById(R.id.task_content_button_back);
+        Button fail = (Button)findViewById(R.id.task_content_button_fail);
         TextView title = (TextView)findViewById(R.id.task_content_title);
         TextView ID = (TextView)findViewById(R.id.task_content_ID);
         TextView price = (TextView)findViewById(R.id.task_content_price);
@@ -424,6 +425,16 @@ public class MainActivity extends AppCompatActivity
         ID.setText(task_information.ID);
         price.setText("$"+Integer.toString(task_information.price));
         content.setText(task_information.content);
+        if(task_information.state == 1){
+            fail.setVisibility(View.VISIBLE);
+            fail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    
+                    task_layout();
+                }
+            });
+        }
 
         deal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -451,6 +462,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
     }
     public void task2do_layout(){
         SetLayout(4);

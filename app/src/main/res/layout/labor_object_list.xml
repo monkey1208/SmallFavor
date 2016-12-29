@@ -4,36 +4,53 @@
     android:background="@color/bisque"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="7"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TITLE"
+            android:textSize="30sp"
+            android:id="@+id/labor_textView_title" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:weightSum="2"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="TITLE"
-        android:textSize="34sp"
-        android:id="@+id/labor_textView_title" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="PRICE"
+                android:id="@+id/labor_textView_price"
+                android:textSize="15sp"
+                android:gravity="right"
+                android:layout_alignBottom="@+id/labor_textView_ID"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="PRICE"
-        android:id="@+id/labor_textView_price"
-        android:textSize="30sp"
-        android:gravity="right"
-        android:layout_alignBottom="@+id/labor_textView_ID"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ID"
-        android:layout_gravity="right"
-        android:id="@+id/labor_textView_ID"
-        android:layout_alignParentEnd="true"
-        android:gravity="right"
-        android:textSize="22sp"
-        android:layout_alignBottom="@+id/labor_textView_title"
-        android:layout_toEndOf="@+id/labor_textView_price" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="ID"
+                android:layout_gravity="right"
+                android:id="@+id/labor_textView_ID"
+                android:layout_alignParentEnd="true"
+                android:gravity="right"
+                android:textSize="15sp"
+                android:layout_alignBottom="@+id/labor_textView_title"
+                android:layout_toEndOf="@+id/labor_textView_price" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
