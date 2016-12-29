@@ -45,8 +45,6 @@ public class Login_Activity extends AppCompatActivity {
                 Toast.makeText(view.getContext(), "請全部填寫", Toast.LENGTH_LONG).show();
             }else {
                 Socket_LR socket = new Socket_LR(l_info, null);
-                ProgressBar spinner = (ProgressBar) findViewById(R.id.login_progressBar);
-                spinner.setVisibility(View.VISIBLE);
                 int returnCode = socket.runSocket();
                 if(returnCode == -1){
                     Toast.makeText(view.getContext(), "Can't Connect to Server", Toast.LENGTH_LONG).show();

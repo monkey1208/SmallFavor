@@ -257,6 +257,7 @@ public class MainActivity extends AppCompatActivity
         TextView name = (TextView)findViewById(R.id.main_textView_ID);
         TextView intelligence_count = (TextView)findViewById(R.id.intelligence_count);
         TextView labor_count = (TextView)findViewById(R.id.labor_count);
+        TextView rate = (TextView)findViewById(R.id.main_textView_Rate);
         Socket_Req socket_req = new Socket_Req("REQ", "main", myaccount, null);
         int returnCode = socket_req.runSocket();
         if(returnCode==1){
@@ -267,6 +268,9 @@ public class MainActivity extends AppCompatActivity
                 name.setText("你好, " + account.nickname);
                 intelligence_count.setText(Integer.toString(account.intelligence_task)+"項");
                 labor_count.setText(Integer.toString(account.labor_task)+"項");
+                ColorDefiner colorDefiner = new ColorDefiner();
+                rate.setText(account.rate+"% 分區是"+colorDefiner.AddText(account.rate));
+                colorDefiner.SetColor(account.rate, rate);
             }
         }else if(returnCode==-1){
             Toast.makeText(this, "Can't connect to Server", Toast.LENGTH_LONG);
@@ -356,6 +360,7 @@ public class MainActivity extends AppCompatActivity
             Button request = (Button)findViewById(R.id.labor_content_button_request);
             TextView title = (TextView)findViewById(R.id.labor_content_title);
             TextView ID = (TextView)findViewById(R.id.labor_content_ID);
+            ColorDefiner colorDefiner = new ColorDefiner();
             TextView price = (TextView)findViewById(R.id.labor_content_price);
             TextView content = (TextView)findViewById(R.id.labor_content_content);
             Labor_information labor_information = (Labor_information) socket_req.getobject();
@@ -364,6 +369,7 @@ public class MainActivity extends AppCompatActivity
                 ID.setText(labor_information.ID);
                 price.setText("$"+Integer.toString(labor_information.price));
                 content.setText(labor_information.content);
+                colorDefiner.SetColor(labor_information.rate, ID);
             }
             request.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -423,6 +429,8 @@ public class MainActivity extends AppCompatActivity
         TextView content = (TextView)findViewById(R.id.task_content_content);
         title.setText(task_information.title);
         ID.setText(task_information.ID);
+        ColorDefiner colorDefiner = new ColorDefiner();
+        colorDefiner.SetColor(task_information.rate, ID);
         price.setText("$"+Integer.toString(task_information.price));
         content.setText(task_information.content);
         if(task_information.state == 1){
@@ -430,10 +438,14 @@ public class MainActivity extends AppCompatActivity
             fail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    
+                    Labor_information tmp = new Labor_information("", 0, "",task_information.post_ID, 0, "");
+                    Socket_Req socket_req = new Socket_Req("DEL", "", myaccount, tmp);
+                    socket_req.runSocket();
                     task_layout();
                 }
             });
+        }else if(task_information.state == 0){
+            fail.setVisibility(View.GONE);
         }
 
         deal.setOnClickListener(new View.OnClickListener() {
@@ -444,8 +456,11 @@ public class MainActivity extends AppCompatActivity
                 }else {
                     Labor_information tmp = new Labor_information("", 0, "", task_information.post_ID, 1, "");
                     Socket_Req socket_req = new Socket_Req("DEL", "", myaccount, tmp);
-                    socket_req.runSocket();
-                    task_layout();
+                    if(socket_req.runSocket() == 1){
+                        task_layout();
+                    }else {
+                        Toast.makeText(MainActivity.this, "餘額不足", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -486,6 +501,8 @@ public class MainActivity extends AppCompatActivity
         TextView content = (TextView)findViewById(R.id.task2do_content_content);
         title.setText(task_information.title);
         ID.setText(task_information.ID);
+        ColorDefiner colorDefiner = new ColorDefiner();
+        colorDefiner.SetColor(task_information.rate, ID);
         price.setText("$"+Integer.toString(task_information.price));
         content.setText(task_information.content);
         giveup.setOnClickListener(new View.OnClickListener() {

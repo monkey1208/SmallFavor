@@ -1,6 +1,7 @@
 package com.example.yang.smallfavor;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,13 +65,15 @@ public class TaskAdapter extends BaseAdapter {
         }
         title.setText(task_list.get(position).title);
         price.setText("$"+Integer.toString(task_list.get(position).price));
-        if(task_list.get(position).state == 1){
-            if(flag==0) {
+        if(task_list.get(position).state == 1) {
+            if (flag == 0) {
                 state.setText(task_list.get(position).accepter + " running");
+                ColorDefiner colorDefiner = new ColorDefiner();
+                colorDefiner.SetColor(task_list.get(position).rate, state);
             }else{
                 state.setText("your duty");
             }
-            convertview.setBackgroundColor(Color.YELLOW);
+        convertview.setBackgroundColor(Color.GRAY);
 
         }else if(task_list.get(position).state == 0){
             state.setText("waiting");

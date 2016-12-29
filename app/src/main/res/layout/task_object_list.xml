@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:background="@color/bisque"
+    android:background="@color/black"
     android:layout_height="match_parent">
 
 
@@ -13,6 +13,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="TITLE"
         android:textSize="34sp"
+        android:textColor="@color/white"
         android:id="@+id/task_textView_title" />
 
     <TextView
@@ -26,6 +27,7 @@
         android:textSize="32sp"
         android:gravity="right"
         android:layout_alignBottom="@+id/task_textView_state"
+        android:textColor="@color/white"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -41,5 +43,6 @@
         android:gravity="right"
         android:textSize="22sp"
         android:layout_alignBottom="@+id/task_textView_title"
+        android:textColor="@color/white"
         android:layout_toEndOf="@+id/task_textView_price" />
 </RelativeLayout>

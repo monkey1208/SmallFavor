@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:background="@color/bisque"
+    android:background="@color/black"
     android:layout_height="match_parent">
 
 
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="TITLE"
+        android:textColor="@color/white"
         android:textSize="34sp"
         android:id="@+id/task2do_textView_title" />
 
@@ -25,6 +26,7 @@
         android:id="@+id/task2do_textView_price"
         android:textSize="32sp"
         android:gravity="right"
+        android:textColor="@color/white"
         android:layout_alignBottom="@+id/task2do_textView_state"
         android:layout_centerHorizontal="true" />
 
@@ -40,6 +42,7 @@
         android:layout_alignParentEnd="true"
         android:gravity="right"
         android:textSize="22sp"
+        android:textColor="@color/white"
         android:layout_alignBottom="@+id/task2do_textView_title"
         android:layout_toEndOf="@+id/task2do_textView_price" />
 </RelativeLayout>

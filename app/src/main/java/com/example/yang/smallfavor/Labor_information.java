@@ -11,6 +11,7 @@ public class Labor_information {
     public int state;
     public String content;
     public String accepter;
+    public double rate;
     public Labor_information(String title, int price, String ID, int post_ID, int state, String content){
         this.title = title;
         this.price = price;
@@ -19,5 +20,6 @@ public class Labor_information {
         this.state = state;
         this.content = content;
         this.accepter = "";
+        this.rate = 0;
     }
 }

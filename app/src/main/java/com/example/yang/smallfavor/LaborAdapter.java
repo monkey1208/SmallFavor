@@ -54,6 +54,8 @@ public class LaborAdapter extends BaseAdapter {
         title.setText(labor_list.get(position).title);
         price.setText("$"+Integer.toString(labor_list.get(position).price));
         ID.setText(labor_list.get(position).ID);
+        ColorDefiner colorDefiner = new ColorDefiner();
+        colorDefiner.SetColor(labor_list.get(position).rate, ID);
         if(labor_list.get(position).state == 1){
             convertview.setBackgroundColor(Color.GRAY);
         }

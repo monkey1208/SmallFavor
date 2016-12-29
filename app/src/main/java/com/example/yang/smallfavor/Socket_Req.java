@@ -75,7 +75,11 @@ public class Socket_Req {
                 if(requestCode.equals("AC")) {
                     send_accept(dis, dos);
                 }else if(requestCode.equals("DEL")){
-                    send_deletion(dis, dos);
+                    boolean flag = send_deletion(dis, dos);
+                    if(flag == true)
+                        returnCode = 1;
+                    else
+                        returnCode = 0;
                 }
                 else{
                     dos.writeUTF(code2command(commandcode));
@@ -130,9 +134,12 @@ public class Socket_Req {
         }else if(labor_information.state == 1){
             dos.writeUTF("success");
         }else{
-            dos.writeUTF("regret");
+            dos.writeUTF("fail");
         }
         String res = dis.readUTF();
+        if(res.equals("NOT_ENOUGH_MONEY")){
+            return false;
+        }
         System.out.println(res);
         return true;
     }
