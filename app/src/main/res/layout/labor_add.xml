@@ -63,6 +63,8 @@
             android:background="@color/gray"
             android:textColor="@color/black"
             android:hint="支付價錢"
+            android:inputType="number"
+            android:singleLine="true"
             android:textSize="27sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

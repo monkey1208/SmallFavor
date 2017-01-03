@@ -93,7 +93,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_version) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("This is Version 1.0");
+            builder.show();
             return true;
         }
 
@@ -269,7 +272,11 @@ public class MainActivity extends AppCompatActivity
                 intelligence_count.setText(Integer.toString(account.intelligence_task)+"項");
                 labor_count.setText(Integer.toString(account.labor_task)+"項");
                 ColorDefiner colorDefiner = new ColorDefiner();
-                rate.setText(account.rate+"% 分區是"+colorDefiner.AddText(account.rate));
+                if (account.rate != (-1)){
+                    rate.setText(account.rate*100 + "% 分區是" + colorDefiner.AddText(account.rate));
+                }else{
+                    rate.setText("0% 分區"+colorDefiner.AddText(account.rate));
+                }
                 colorDefiner.SetColor(account.rate, rate);
             }
         }else if(returnCode==-1){
@@ -333,6 +340,12 @@ public class MainActivity extends AppCompatActivity
                     int returnCode = socket_req.runSocket();
                     if (returnCode == 1) {
                         title.setText("");
+                        title.setText("");
+                        price.setText("");
+                        content.setText("");
+                        title.setHint("標題");
+                        price.setHint("價格");
+                        content.setHint("內文");
                         labor_layout();
                     } else if (returnCode == -1) {
                         Toast.makeText(MainActivity.this, "Can't connect to Server", Toast.LENGTH_LONG).show();

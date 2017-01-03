@@ -42,7 +42,7 @@ public class login_information {
         int money = 0;
         int intelligence_task = 0;
         int labor_task = 0;
-        double rate = 0;
+        double rate = -1;
     }
 
 }
