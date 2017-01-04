@@ -27,6 +27,7 @@ public class Socket_Req {
     //public final String IP = "140.112.30.36";
     //public final String IP = "10.5.5.29";
     public final String IP = "10.5.5.36";
+    //public final String IP = "140.112.73.35";
     public final int PORT = 5120;
     private String requestCode = "REQ"; //REQ or ADD
     public int returnCode = 0;
@@ -102,6 +103,8 @@ public class Socket_Req {
                         else if (requestCode.equals("ADD")) {
                             flag = send_content(dis, dos);
                         }
+                    } else if (commandcode == 8) {
+                        flag = request_trade(dis, dos);
                     }
                     if (flag) {
                         returnCode = 1;
@@ -120,6 +123,12 @@ public class Socket_Req {
                 e.printStackTrace();
             }
         }
+    }
+    private boolean request_trade(DataInputStream dis, DataOutputStream dos) throws IOException {
+        String gson_string = dis.readUTF();
+        gson2object(gson_string);
+        System.out.println(gson_string);
+        return true;
     }
     private boolean send_accept(DataInputStream dis, DataOutputStream dos) throws IOException {
         dos.writeUTF(Integer.toString(labor_information.post_ID));
@@ -196,6 +205,8 @@ public class Socket_Req {
                 return "task";
             case 7:
                 return "task2do";
+            case 8:
+                return "trade";
             default:
                 return "none";
         }
@@ -218,6 +229,8 @@ public class Socket_Req {
                 return 6;
             case "task2do":
                 return 7;
+            case "trade":
+                return 8;
             default:
                 return -1;
         }
@@ -226,6 +239,7 @@ public class Socket_Req {
         login_information.account account_info = null;
         List<Labor_information> labor_information_list = null;
         Labor_information labor_information = null;
+        List<login_information.trade> tradeList = null;
     }
     private void gson2object(String gson_string){
         Gson gson = new Gson();
@@ -253,6 +267,9 @@ public class Socket_Req {
             case 7:
                 objects.labor_information_list = gson.fromJson(gson_string, new TypeToken<List<Labor_information>>(){}.getType());
                 break;
+            case 8:
+                objects.tradeList = gson.fromJson(gson_string, new TypeToken<List<login_information.trade>>(){}.getType());
+                break;
             default:
                 break;
         }
@@ -275,6 +292,8 @@ public class Socket_Req {
                 return objects.labor_information_list;
             case 7:
                 return objects.labor_information_list;
+            case 8:
+                return objects.tradeList;
             default:
                 return null;
         }

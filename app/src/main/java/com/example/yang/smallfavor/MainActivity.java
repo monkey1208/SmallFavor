@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private int flag = 0;//0:main 1:intelligence 2:labor
     private String myaccount;
+    private String myaddress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity
                 main_layout();
             }else if(flag==21 || flag==22){
                 labor_layout();
-            }else if(flag==3 || flag==4){
+            }else if(flag==3 || flag==4 || flag==6){
                 main_layout();
             }else if(flag==31){
                 task_layout();
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity
             logout();
         } else if (id == R.id.drawer_task2do) {
             task2do_layout();
+        } else if (id == R.id.drawer_transaction){
+            transaction_layout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -160,6 +163,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 1:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -171,6 +175,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 2:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -182,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 21:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -193,6 +199,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 22:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -204,6 +211,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 3:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -215,6 +223,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 31:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -226,6 +235,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 4:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -237,6 +247,7 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 41:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
@@ -248,6 +259,19 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
+                break;
+            case 6:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task2do_layout).setVisibility(View.GONE);
+                findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -267,6 +291,7 @@ public class MainActivity extends AppCompatActivity
             login_information.account account = null;
             account = (login_information.account)socket_req.getobject();
             if(account != null) {
+                myaddress = account.address;
                 textView_money.setText("$"+Integer.toString(account.money));
                 name.setText("你好, " + account.nickname);
                 intelligence_count.setText(Integer.toString(account.intelligence_task)+"項");
@@ -275,7 +300,7 @@ public class MainActivity extends AppCompatActivity
                 if (account.rate != (-1)){
                     rate.setText(account.rate*100 + "% 分區是" + colorDefiner.AddText(account.rate));
                 }else{
-                    rate.setText("0% 分區"+colorDefiner.AddText(account.rate));
+                    rate.setText("請完成10項 分區"+colorDefiner.AddText(account.rate));
                 }
                 colorDefiner.SetColor(account.rate, rate);
             }
@@ -429,6 +454,16 @@ public class MainActivity extends AppCompatActivity
         task_list = (List<Labor_information>) socket_req.getobject();
         adapter = new TaskAdapter(MainActivity.this, task_list, 0);
         list.setAdapter(adapter);
+        if (adapter.getCount()==0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("你的List是空的！");
+            builder.setNegativeButton("確定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            builder.show();
+        }
     }
     public void task_content_layout(final Labor_information task_information){
         SetLayout(31);
@@ -503,6 +538,16 @@ public class MainActivity extends AppCompatActivity
         task_list = (List<Labor_information>) socket_req.getobject();
         adapter = new TaskAdapter(MainActivity.this, task_list, 1);
         list.setAdapter(adapter);
+        if (adapter.getCount()==0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("你的List是空的！");
+            builder.setNegativeButton("確定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            builder.show();
+        }
     }
     public void task2do_content_layout(final Labor_information task_information){
         SetLayout(41);
@@ -527,6 +572,21 @@ public class MainActivity extends AppCompatActivity
                 task2do_layout();
             }
         });
+    }
+    public void transaction_layout(){
+        SetLayout(6);
+        flag = 6;
+        TextView address = (TextView)findViewById(R.id.transaction_address_textView);
+        address.setText("Block chain address:"+myaddress);
+        TransactionAdapter adapter = null;
+        ListView list = (ListView)findViewById(R.id.transaction_listView);
+        List<login_information.trade> trade_list;
+        Socket_Req socket_req = new Socket_Req("REQ", "trade", myaccount, null);
+        socket_req.runSocket();
+        trade_list = (List<login_information.trade>) socket_req.getobject();
+        adapter = new TransactionAdapter(MainActivity.this, trade_list, myaddress);
+        list.setAdapter(adapter);
+
     }
 
 }

@@ -43,6 +43,12 @@ public class login_information {
         int intelligence_task = 0;
         int labor_task = 0;
         double rate = -1;
+        String address = "";
+    }
+    public static class trade{
+        String receiver = "";
+        String sender = "";
+        int money = 0;
     }
 
 }

@@ -26,6 +26,7 @@ public class Socket_LR {
     //public final String IP = "140.112.30.36";
     //public final String IP = "10.5.5.29";
     public final String IP = "10.5.5.36";
+    //public final String IP = "140.112.73.35";
     public final int PORT = 5120;
     public Socket_LR(login_information.login login_package, login_information.register register_package){
         if(login_package != null){
