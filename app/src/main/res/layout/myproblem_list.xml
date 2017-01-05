@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:background="@color/black"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:weightSum="11"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TITLE"
+            android:textSize="34sp"
+            android:textColor="@color/white"
+            android:id="@+id/myproblem_textView_title" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="PRICE"
+            android:id="@+id/myproblem_textView_price"
+            android:textSize="32sp"
+            android:gravity="right"
+            android:textColor="@color/white"
+            android:layout_alignBottom="@+id/myproblem_textView_title"
+            android:layout_toEndOf="@+id/myproblem_textView_title" />
+        <ImageView
+            android:id="@+id/intelligence_ImageView_icon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/heart"
+            android:background="#00000000"
+            android:adjustViewBounds="true"
+            android:maxWidth="80dp"
+            android:maxHeight="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/myproblem_textView_price" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="pop"
+            android:id="@+id/myproblem_textView_popularity"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textColor="@color/white"
+            android:layout_alignBottom="@+id/myproblem_textView_title"
+            android:layout_toEndOf="@+id/myproblem_textView_title"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="ID"
+                android:layout_gravity="right"
+                android:id="@+id/myproblem_textView_ID"
+                android:gravity="right"
+                android:textSize="18sp"
+                android:textColor="@color/wheat"
+                android:layout_alignTop="@+id/myproblem_textView_price"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="department"
+                android:layout_gravity="right"
+                android:id="@+id/myproblem_textView_department"
+                android:gravity="right"
+                android:textSize="12sp"
+                android:textColor="@color/wheat"
+                android:layout_alignBottom="@+id/myproblem_textView_price"
+                android:layout_alignBaseline="@+id/myproblem_textView_price"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

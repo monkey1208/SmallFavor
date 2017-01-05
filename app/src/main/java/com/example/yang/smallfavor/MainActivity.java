@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     private int flag = 0;//0:main 1:intelligence 2:labor
     private String myaccount;
     private String myaddress;
+    public String depart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +71,18 @@ public class MainActivity extends AppCompatActivity
                 main_layout();
             }else if(flag==21 || flag==22){
                 labor_layout();
-            }else if(flag==3 || flag==4 || flag==6){
+            }else if(flag==3 || flag==4 || flag==6 || flag==7){
                 main_layout();
             }else if(flag==31){
                 task_layout();
             }else if(flag==41){
                 task2do_layout();
+            }else if(flag==11){
+                intelligence_layout();
+            }else if(flag==71){
+                myprobem_layout();
+            }else if(flag==5 || flag==51){
+                intelligence_sec_layout(depart);
             }
         }
         return true;
@@ -116,8 +125,8 @@ public class MainActivity extends AppCompatActivity
             intelligence_layout();
         } else if (id == R.id.drawer_labor) {
             labor_layout();
-        } else if (id == R.id.four) {
-
+        } else if (id == R.id.favorite) {
+            myprobem_layout();
         } else if (id == R.id.drawer_task) {
             task_layout();
         } else if (id == R.id.drawer_logout) {
@@ -156,6 +165,7 @@ public class MainActivity extends AppCompatActivity
             case 0:
                 findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -163,11 +173,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 1:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -175,11 +190,33 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
+                break;
+            case 11:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task2do_layout).setVisibility(View.GONE);
+                findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 2:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -187,11 +224,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 21:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -199,11 +241,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 22:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.VISIBLE);
@@ -211,11 +258,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 3:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -223,11 +275,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 31:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -235,11 +292,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 4:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -247,11 +309,16 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.VISIBLE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 41:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -259,11 +326,33 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
             case 6:
                 findViewById(R.id.main_layout).setVisibility(View.GONE);
                 findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task2do_layout).setVisibility(View.GONE);
+                findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
                 findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
@@ -271,13 +360,69 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.task_content_layout).setVisibility(View.GONE);
                 findViewById(R.id.task2do_layout).setVisibility(View.GONE);
                 findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
-                findViewById(R.id.transaction_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.problem_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
+                break;
+            case 51:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task2do_layout).setVisibility(View.GONE);
+                findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
+                break;
+            case 7:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task2do_layout).setVisibility(View.GONE);
+                findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
+                break;
+            case 71:
+                findViewById(R.id.main_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_layout).setVisibility(View.GONE);
+                findViewById(R.id.intelligence_sec_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_add_layout).setVisibility(View.GONE);
+                findViewById(R.id.labor_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_layout).setVisibility(View.GONE);
+                findViewById(R.id.task_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.task2do_layout).setVisibility(View.GONE);
+                findViewById(R.id.tas2do_content_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_layout).setVisibility(View.GONE);
+                findViewById(R.id.problem_edit_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_layout).setVisibility(View.GONE);
+                findViewById(R.id.myproblem_list_content_layout).setVisibility(View.VISIBLE);
+                findViewById(R.id.transaction_layout).setVisibility(View.GONE);
                 break;
         }
     }
     public void main_layout(){
         SetLayout(0);
         flag = 0;
+        setTitle("Small Favor");
         Button button_i = (Button)findViewById(R.id.main_button_intelligence);
         Button button_l = (Button)findViewById(R.id.main_button_labor);
         TextView textView_money = (TextView)findViewById(R.id.money_textView);
@@ -298,7 +443,9 @@ public class MainActivity extends AppCompatActivity
                 labor_count.setText(Integer.toString(account.labor_task)+"項");
                 ColorDefiner colorDefiner = new ColorDefiner();
                 if (account.rate != (-1)){
-                    rate.setText(account.rate*100 + "% 分區是" + colorDefiner.AddText(account.rate));
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    String s = df.format((account.rate)*100);
+                    rate.setText(s + "% 分區是" + colorDefiner.AddText(account.rate));
                 }else{
                     rate.setText("請完成10項 分區"+colorDefiner.AddText(account.rate));
                 }
@@ -323,13 +470,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    public void intelligence_layout(){
-        SetLayout(1);
-        flag = 1;
-    }
     public void labor_layout(){
         SetLayout(2);
         flag = 2;
+        setTitle("勞力區");
         LaborAdapter adapter = null;
         ListView list = (ListView)findViewById(R.id.labor_listView);
         List<Labor_information> labor_list;// = new ArrayList<Labor_information>();
@@ -397,7 +541,7 @@ public class MainActivity extends AppCompatActivity
         if(returnCode == 1){
             Button request = (Button)findViewById(R.id.labor_content_button_request);
             TextView title = (TextView)findViewById(R.id.labor_content_title);
-            TextView ID = (TextView)findViewById(R.id.labor_content_ID);
+            final TextView ID = (TextView)findViewById(R.id.labor_content_ID);
             ColorDefiner colorDefiner = new ColorDefiner();
             TextView price = (TextView)findViewById(R.id.labor_content_price);
             TextView content = (TextView)findViewById(R.id.labor_content_content);
@@ -412,22 +556,33 @@ public class MainActivity extends AppCompatActivity
             request.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("確定接受？");
-                    builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Socket_Req socket_req1 = new Socket_Req("AC", "", myaccount, now_labor);
-                            socket_req1.runSocket();
-                            labor_layout();
-                        }
-                    });
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    });
-                    builder.show();
+                    if(myaccount == ID.getText()){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("你不能接受自己的任務！");
+                        builder.setNegativeButton("確定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                        builder.show();
+                    }else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("確定接受？");
+                        builder.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Socket_Req socket_req1 = new Socket_Req("AC", "", myaccount, now_labor);
+                                socket_req1.runSocket();
+                                labor_layout();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                        builder.show();
+                    }
                 }
             });
         }else if(returnCode == -1){
@@ -446,6 +601,7 @@ public class MainActivity extends AppCompatActivity
     public void task_layout(){
         SetLayout(3);
         flag = 3;
+        setTitle("我的任務");
         TaskAdapter adapter = null;
         ListView list = (ListView)findViewById(R.id.task_listView);
         List<Labor_information> task_list;
@@ -530,6 +686,7 @@ public class MainActivity extends AppCompatActivity
     public void task2do_layout(){
         SetLayout(4);
         flag = 4;
+        setTitle("我要完成的任務");
         TaskAdapter adapter = null;
         ListView list = (ListView)findViewById(R.id.task2do_listView);
         List<Labor_information> task_list;
@@ -576,6 +733,7 @@ public class MainActivity extends AppCompatActivity
     public void transaction_layout(){
         SetLayout(6);
         flag = 6;
+        setTitle("交易紀錄");
         TextView address = (TextView)findViewById(R.id.transaction_address_textView);
         address.setText("Block chain address:"+myaddress);
         TransactionAdapter adapter = null;
@@ -586,6 +744,180 @@ public class MainActivity extends AppCompatActivity
         trade_list = (List<login_information.trade>) socket_req.getobject();
         adapter = new TransactionAdapter(MainActivity.this, trade_list, myaddress);
         list.setAdapter(adapter);
+
+    }
+    public void intelligence_layout(){
+        SetLayout(1);
+        flag = 1;
+        setTitle("智力區");
+        Intelligence_depart_Adapter adapter = null;
+        ListView list = (ListView)findViewById(R.id.intelligence_listView);
+        String department;
+        List<depart_info> intelligence_list = new ArrayList<depart_info>();
+        intelligence_list.add(new depart_info("中文系"));
+        intelligence_list.add(new depart_info("資工系"));
+        intelligence_list.add(new depart_info("法律系"));
+        intelligence_list.add(new depart_info("電資系"));
+        intelligence_list.add(new depart_info("外文系"));
+        intelligence_list.add(new depart_info("森林系"));
+        intelligence_list.add(new depart_info("日文系"));
+        intelligence_list.add(new depart_info("土木系"));
+        intelligence_list.add(new depart_info("化工系"));
+        intelligence_list.add(new depart_info("機械系"));
+        intelligence_list.add(new depart_info("經濟系"));
+        adapter = new Intelligence_depart_Adapter(this, intelligence_list);
+        list.setAdapter(adapter);
+        //imageButton_add.setOnClickListener();
+    }
+    public void intelligence_sec_layout(String department){
+        depart = department;
+        SetLayout(11);
+        flag = 11;
+        Button addproblem = (Button)findViewById(R.id.add_problem);
+        List<Intelligence_information> intell_inform;
+        IntelligenceAdapter adapter;
+        ListView list = (ListView)findViewById(R.id.intelligence_sec_listView);
+        socket_req_intell socket_req = new socket_req_intell(MainActivity.this,"REQ", "intelligence", myaccount, null);
+        socket_req.runSocket();
+        intell_inform = (List<Intelligence_information>) socket_req.getobject();
+        adapter = new IntelligenceAdapter(MainActivity.this, intell_inform);
+        list.setAdapter(adapter);
+
+        addproblem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                problem_edit();
+            }
+        });
+
+    }
+    private void normalDialogEvent(final Intelligence_information now_intell, final TextView content, final String content_detail){
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("觀賞解答")
+                .setMessage("確定要付費購買解答嗎?")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "gogo", Toast.LENGTH_SHORT).show();
+                        socket_req_intell socket_req = new socket_req_intell(MainActivity.this ,"ACIQ", "", myaccount, now_intell );
+                        socket_req.runSocket();
+                        content.setText(content_detail);
+                    }
+
+                })
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //不買
+                        Toast.makeText(getApplicationContext(), "nono", Toast.LENGTH_SHORT).show();
+                        intelligence_sec_layout(depart);
+                    }
+                })
+                .show();
+    }
+    public void problem(Intelligence_information now_intell){
+        //System.out.println(myaccount+" hahahah " +now_intell.ID);
+        final TextView content = (TextView) findViewById(R.id.problem_answer_content);
+
+        SetLayout(5);
+        flag = 5;
+        Intelligence_information intell_information = null;
+        socket_req_intell socket_req = new socket_req_intell(MainActivity.this ,"REQ", "intelligence_content", myaccount, now_intell);
+        int returnCode = socket_req.runSocket();
+        if(returnCode == 1) {
+            TextView title = (TextView) findViewById(R.id.problem_set_title);
+            TextView ID = (TextView) findViewById(R.id.problem_postername);
+            //TextView content = (TextView) findViewById(R.id.problem_answer_content);
+            TextView price = (TextView)findViewById(R.id.problem_set_price) ;
+            intell_information = (Intelligence_information) socket_req.getobject();
+            if (intell_information != null) {
+                title.setText(intell_information.title);
+                ID.setText(intell_information.ID);
+                System.out.println(intell_information.content + "ewtwegewrg");
+                content.setText("");
+                price.setText("$"+Integer.toString(intell_information.price));
+            }
+
+        }
+        if( !myaccount.equals(now_intell.ID) && intell_information!= null) {
+            normalDialogEvent(now_intell, content, intell_information.content);
+        }
+
+    }
+    public void problem_edit(){
+        SetLayout(51);
+        flag = 51;
+
+        Button add = (Button)findViewById(R.id.problem_post_button_edit);
+        Button giveup = (Button)findViewById(R.id.problem_giveup_button_edit);
+        final TextView postername = (TextView)findViewById(R.id.problem_postername_edit);
+        postername.setText(myaccount);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("fuckyou ");
+                EditText title = (EditText)findViewById(R.id.problem_set_title_edit);
+                EditText content = (EditText)findViewById(R.id.problem_answer_content_edit);
+                EditText price = (EditText)findViewById(R.id.problem_set_price_edit);
+                postername.setText(myaccount);
+                if(postername.getText().toString().length() == 0 || title.getText().toString().length() == 0){
+                    Toast.makeText(MainActivity.this, "Must fill postername and title", Toast.LENGTH_LONG);
+                }else {
+                    Intelligence_information intelligence_information = new Intelligence_information(title.getText().toString(), Integer.valueOf(price.getText().toString()), myaccount, 234 ,"CSIE",-1,content.getText().toString());
+                    socket_req_intell socket_req = new socket_req_intell(MainActivity.this ,"ADD", "intelligence_content", myaccount, intelligence_information);
+                    int returnCode = socket_req.runSocket();
+                    if (returnCode == 1) {
+                        title.setText("");
+                        intelligence_sec_layout(depart);
+                    } else if (returnCode == -1) {
+                        Toast.makeText(MainActivity.this, "Can't connect to Server", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "other error", Toast.LENGTH_LONG).show();
+                    }
+                    socket_req = null;
+                    intelligence_information = null;
+                }
+            }
+        });
+
+        giveup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intelligence_sec_layout(depart);
+            }
+        });
+    }
+    public void myprobem_layout(){
+        SetLayout(7);
+        flag = 7;
+        List<Intelligence_information> intell_inform;
+        MyproblemAdapter adapter;
+        ListView list = (ListView)findViewById(R.id.myproblem_listView);
+        socket_req_intell socket_req = new socket_req_intell(MainActivity.this,"REQ", "collection", myaccount, null);
+        socket_req.runSocket();
+        intell_inform = (List<Intelligence_information>) socket_req.getobject();
+        adapter = new MyproblemAdapter(MainActivity.this, intell_inform);
+        list.setAdapter(adapter);
+    }
+    public void myproblem_content_layout(final Intelligence_information now_intell){
+        SetLayout(71);
+        flag = 71;
+        socket_req_intell socket_req = new socket_req_intell(MainActivity.this,"REQ", "intelligence_content", myaccount, now_intell);
+        int returnCode = socket_req.runSocket();
+        if(returnCode == 1) {
+            TextView title = (TextView) findViewById(R.id.myproblem_set_title);
+            TextView ID = (TextView) findViewById(R.id.myproblem_postername);
+            TextView content = (TextView) findViewById(R.id.myproblem_answer_content);
+            TextView price = (TextView)findViewById(R.id.myproblem_set_price) ;
+            Intelligence_information intell_information = (Intelligence_information) socket_req.getobject();
+            if (intell_information != null) {
+                title.setText(intell_information.title);
+                ID.setText(intell_information.ID);
+                System.out.println(intell_information.content + "ewtwegewrg");
+                content.setText(intell_information.content);
+                price.setText("$"+Integer.toString(intell_information.price));
+            }
+        }
 
     }
 

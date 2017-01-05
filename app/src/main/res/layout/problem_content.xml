@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.yang.smallfavor.MainActivity"
+    tools:showIn="@layout/app_bar_main"
+    android:orientation="vertical">
+    <TextView
+        android:text="作者"
+        android:background="#444444"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:id="@+id/problem_poster"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="標題"
+        android:background="#444444"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:id="@+id/problem_title"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/problem_poster"/>
+
+    <TextView
+        android:text="價格"
+        android:background="#444444"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_toEndOf="@+id/problem_set_title"
+        android:layout_below="@+id/problem_poster"
+        android:id="@+id/problem_price"/>
+
+    <TextView
+        android:text=""
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_toEndOf="@+id/problem_poster"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/problem_postername"/>
+
+    <TextView
+        android:textSize="20sp"
+        android:background="#666666"
+        android:textColor="#FFFFFF"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_below="@+id/problem_postername"
+        android:layout_toEndOf="@+id/problem_title"
+        android:layout_above="@+id/problem_answer"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:id="@+id/problem_set_title" />
+
+    <TextView
+        android:textSize="20sp"
+        android:background="#666666"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/problem_postername"
+        android:layout_toEndOf="@+id/problem_price"
+        android:layout_above="@+id/problem_answer"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:id="@+id/problem_set_price" />
+
+    <TextView
+        android:text="內容："
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/problem_title"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:id="@+id/problem_answer" />
+
+
+
+    <ScrollView
+        android:id="@+id/problem_edit_scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/black"
+        android:layout_below="@+id/imageView_layout">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:inputType="textMultiLine"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:id="@+id/problem_answer_content" />
+    </ScrollView>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        android:layout_below="@+id/problem_set_price"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageButton" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageButton"
+        android:background="@color/black"
+        android:id="@+id/imageView_layout"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/problem_image1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/problem_image2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/problem_image3" />
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

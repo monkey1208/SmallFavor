@@ -11,13 +11,14 @@
         <item
             android:id="@+id/drawer_labor"
             android:title="勞力賺錢區" />
-        <item
-            android:id="@+id/four"
-            android:title="Four" />
+
     </group>
 
     <item android:title="帳號">
         <menu>
+            <item
+                android:id="@+id/favorite"
+                android:title="  我的收藏" />
             <item
                 android:id="@+id/drawer_task"
                 android:title="  我的任務" />
