@@ -62,7 +62,7 @@ public class LaborAdapter extends BaseAdapter {
         convertview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
                 ((MainActivity)c).labor_content_layout(labor_list.get(position));
             }
         });

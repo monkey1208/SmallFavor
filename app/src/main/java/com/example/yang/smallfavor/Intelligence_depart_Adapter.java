@@ -49,7 +49,7 @@ public class Intelligence_depart_Adapter extends BaseAdapter {
         convertview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
                 if(intelligence_list.get(position).depart.equals("資工系"))
                     ((MainActivity)c).intelligence_sec_layout("CSIE");
                 else if(intelligence_list.get(position).depart.equals("中文系"))

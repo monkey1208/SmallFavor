@@ -83,7 +83,7 @@ public class TaskAdapter extends BaseAdapter {
         convertview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
                 if(flag == 0) {
                     ((MainActivity) c).task_content_layout(task_list.get(position));
                 }else{

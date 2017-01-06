@@ -62,7 +62,7 @@ public class MyproblemAdapter extends BaseAdapter {
         convertview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
                 ((MainActivity)c).myproblem_content_layout(intelligence_list.get(position));
             }
         });

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/my">
+    android:background="@drawable/library">
 
     <LinearLayout
         android:layout_marginTop="130dp"
@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4fffffff"
+        android:background="#7f111111"
         android:layout_centerHorizontal="true">
 
         <EditText

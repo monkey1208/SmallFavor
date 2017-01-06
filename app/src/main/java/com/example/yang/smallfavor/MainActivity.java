@@ -672,7 +672,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 if(task_information.state == 1){
-                    Toast.makeText(MainActivity.this, "Pleas fucking wait for"+task_information.accepter, Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Pleas wait for"+task_information.accepter, Toast.LENGTH_LONG).show();
                 }else {
                     Labor_information tmp = new Labor_information("", 0, "", task_information.post_ID, -1, "");
                     Socket_Req socket_req = new Socket_Req("DEL", "", myaccount, tmp);
